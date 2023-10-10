@@ -3,6 +3,7 @@ package controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -18,7 +19,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import model.Persona;
 
 import javafx.fxml.FXML;
@@ -58,12 +60,18 @@ public class TbPersonasController implements Initializable{
     @FXML
     void aniadirPersona(ActionEvent event) {
     	
+		Image icono = new Image(Main.class.getResourceAsStream("/img/agenda.png"));
+    	
     	/*
     	 * Si algunos de los TextFields está vacio entonces saltará una Ventana 
     	 * 	de Error con los campos NULL
     	 * */
     	if (tfNombre.getText().isEmpty() || tfApellidos.getText().isEmpty() || tfEdad.getText().isEmpty()) {
     		Alert alertWindows = new Alert(Alert.AlertType.ERROR);
+    		
+    		Stage stage = (Stage) alertWindows.getDialogPane().getScene().getWindow();
+    		stage.getIcons().add(icono);
+    		
     		alertWindows.setHeaderText(null);
     		String mensaje = "";
 			if (tfNombre.getText().isEmpty()){
@@ -97,6 +105,10 @@ public class TbPersonasController implements Initializable{
 	        * 	indicará que se ha añadido la persona
 	        * */
 	        Alert infoWindow = new Alert(Alert.AlertType.INFORMATION);
+	        
+	        Stage stage = (Stage) infoWindow.getDialogPane().getScene().getWindow();
+    		stage.getIcons().add(icono);
+	        
 	        infoWindow.setHeaderText(null);
 	        infoWindow.setContentText("Persona agregada correctamente");
 	        infoWindow.showAndWait();
