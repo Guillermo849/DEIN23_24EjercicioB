@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -57,14 +58,49 @@ public class TbPersonasController implements Initializable{
     @FXML
     void aniadirPersona(ActionEvent event) {
     	
-    	Persona persona = new Persona(tfNombre.getText(),
-    			tfApellidos.getText(),
-                Integer.parseInt(tfEdad.getText()));
-        	
-    	ObservableList<Persona> obLstPersonas = tbViewPersonas.getItems();
-    	obLstPersonas.add(persona);
-        tbViewPersonas.setItems(obLstPersonas);
-    	
+    	/*
+    	 * Si algunos de los TextFields está vacio entonces saltará una Ventana 
+    	 * 	de Error con los campos NULL
+    	 * */
+    	if (tfNombre.getText().isEmpty() || tfApellidos.getText().isEmpty() || tfEdad.getText().isEmpty()) {
+    		Alert alertWindows = new Alert(Alert.AlertType.ERROR);
+    		alertWindows.setHeaderText(null);
+    		String mensaje = "";
+			if (tfNombre.getText().isEmpty()){
+				mensaje += "El campo Nombre es Obligatorio \n";
+			}
+			if (tfApellidos.getText().isEmpty()) {
+				mensaje += "El campo Apellidos es Obligatorio \n";
+			}
+			if (tfEdad.getText().isEmpty()) {
+				mensaje += "El campo Edad es Obligatorio \n";
+			}
+			if (!tfEdad.getText().matches("[0-9]*")) {
+				mensaje += "El campo Edad debe ser númerico \n";
+			}
+			
+			alertWindows.setContentText(mensaje);
+    		alertWindows.showAndWait();
+    	} else {
+    	/*
+    	 * Añadirá la persona a la tabla
+    	 * */
+    		Persona persona = new Persona(tfNombre.getText(),
+	    			tfApellidos.getText(),
+	                Integer.parseInt(tfEdad.getText()));
+	        	
+	    	ObservableList<Persona> obLstPersonas = tbViewPersonas.getItems();
+	    	obLstPersonas.add(persona);
+	        tbViewPersonas.setItems(obLstPersonas);
+	        
+	       /* Saltará una ventana de Información que
+	        * 	indicará que se ha añadido la persona
+	        * */
+	        Alert infoWindow = new Alert(Alert.AlertType.INFORMATION);
+	        infoWindow.setHeaderText(null);
+	        infoWindow.setContentText("Persona agregada correctamente");
+	        infoWindow.showAndWait();
+    	}
     }
 
 	@Override
