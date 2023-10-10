@@ -11,9 +11,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("Sample.fxml"));
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+			BorderPane root = FXMLLoader.load(getClass().getResource("/fxml/TbPersonas.fxml"));
+			Scene scene = new Scene(root,600,400);
+			scene.getStylesheets().add(getClass() .getResource("/css/application.css").toExternalForm());
+			primaryStage.setTitle("Personas");
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch(Exception e) {

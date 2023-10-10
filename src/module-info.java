@@ -6,6 +6,7 @@ module DEIN23_24EjercicioB_TablaPersonas {
 	requires javafx.swing;
 	requires javafx.media;
 	requires javafx.graphics;
+	opens model to javafx.base;
 	opens application to javafx.graphics, javafx.fxml;
 	opens controllers to javafx.graphics, javafx.fxml;
 }
